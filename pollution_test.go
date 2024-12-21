@@ -90,7 +90,7 @@ func TestValidAlias(t *testing.T) {
 	}
 }
 
-// TestPollutionByParams tests the call to the pollution API
+// TestPollutionByParams tests the call to the current pollution API
 func TestPollutionByParams(t *testing.T) {
 	t.Parallel()
 	p, err := NewPollution(os.Getenv("OWM_API_KEY"))
@@ -105,6 +105,46 @@ func TestPollutionByParams(t *testing.T) {
 		Datetime: "current",
 	}
 	if err := p.PollutionByParams(params); err != nil {
+		t.Error(err)
+	}
+}
+
+// TestForecastPollutionByParams tests the call to the forecast pollution API
+func TestForecastPollutionByParams(t *testing.T) {
+	t.Parallel()
+	p, err := NewPollution(os.Getenv("OWM_API_KEY"))
+	if err != nil {
+		t.Error(err)
+	}
+	params := &PollutionParameters{
+		Location: Coordinates{
+			Latitude:  0.0,
+			Longitude: 10.0,
+		},
+		Datetime: "current",
+	}
+	if err := p.ForecastPollutionByParams(params); err != nil {
+		t.Error(err)
+	}
+}
+
+// TestHistoricalPollutionByParams tests the call to the historical pollution API
+func TestHistoricalPollutionByParams(t *testing.T) {
+	t.Parallel()
+	p, err := NewPollution(os.Getenv("OWM_API_KEY"))
+	if err != nil {
+		t.Error(err)
+	}
+	params := &HistoricalPollutionParameters{
+		Location: Coordinates{
+			Latitude:  0.0,
+			Longitude: 10.0,
+		},
+		Datetime: "current",
+		Start:    1606223802,
+		End:      1606482999,
+	}
+	if err := p.HistoricalPollutionByParams(params); err != nil {
 		t.Error(err)
 	}
 }

@@ -34,17 +34,19 @@ var (
 // DataUnits represents the character chosen to represent the temperature notation
 var DataUnits = map[string]string{"C": "metric", "F": "imperial", "K": "internal"}
 var (
-	baseURL        = "https://api.openweathermap.org/data/2.5/weather?%s"
-	onecallURL     = "https://api.openweathermap.org/data/3.0/onecall%s"
-	iconURL        = "https://openweathermap.org/img/w/%s"
-	groupURL       = "http://api.openweathermap.org/data/2.5/group?%s"
-	stationURL     = "https://api.openweathermap.org/data/2.5/station?id=%d"
-	forecast5Base  = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&%s&mode=json&units=%s&lang=%s&cnt=%d"
-	forecast16Base = "https://api.openweathermap.org/data/2.5/forecast/daily?appid=%s&%s&mode=json&units=%s&lang=%s&cnt=%d"
-	historyURL     = "https://api.openweathermap.org/data/2.5/history/%s"
-	pollutionURL   = "https://api.openweathermap.org/data/2.5/air_pollution?appid=%s&lat=%s&lon=%s"
-	uvURL          = "https://api.openweathermap.org/data/2.5/"
-	dataPostURL    = "https://openweathermap.org/data/post"
+	baseURL                = "https://api.openweathermap.org/data/2.5/weather?%s"
+	onecallURL             = "https://api.openweathermap.org/data/3.0/onecall%s"
+	iconURL                = "https://openweathermap.org/img/w/%s"
+	groupURL               = "http://api.openweathermap.org/data/2.5/group?%s"
+	stationURL             = "https://api.openweathermap.org/data/2.5/station?id=%d"
+	forecast5Base          = "https://api.openweathermap.org/data/2.5/forecast?appid=%s&%s&mode=json&units=%s&lang=%s&cnt=%d"
+	forecast16Base         = "https://api.openweathermap.org/data/2.5/forecast/daily?appid=%s&%s&mode=json&units=%s&lang=%s&cnt=%d"
+	historyURL             = "https://api.openweathermap.org/data/2.5/history/%s"
+	pollutionURL           = "https://api.openweathermap.org/data/2.5/air_pollution?appid=%s&lat=%s&lon=%s"
+	forecastPollutionURL   = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=%s&lat=%s&lon=%s"
+	historicalPollutionURL = "https://api.openweathermap.org/data/2.5/air_pollution/historical?appid=%s&lat=%s&lon=%s&start=%d&end=%d"
+	uvURL                  = "https://api.openweathermap.org/data/2.5/"
+	dataPostURL            = "https://openweathermap.org/data/post"
 )
 
 // LangCodes holds all supported languages to be used
