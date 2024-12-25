@@ -7,25 +7,18 @@ import (
 	"strconv"
 )
 
-// DateTimeAliases holds the alias the pollution API supports in lieu
-// of an ISO 8601 timestamp
-var DateTimeAliases = []string{"current"}
-
-// ValidAlias checks to make sure the given alias is a valid one
-func ValidAlias(alias string) bool {
-	for _, i := range DateTimeAliases {
-		if i == alias {
-			return true
-		}
-	}
-	return false
-}
-
 // PollutionParameters holds the parameters needed to make
-// a call to the pollution API
+// a call to the current and forecast pollution API
 type PollutionParameters struct {
 	Location Coordinates
-	Datetime string // this should be either ISO 8601 or an alias
+}
+
+// HistoricalPollutionParameters holds the parameters needed to make
+// a call to the historical pollution API
+type HistoricalPollutionParameters struct {
+	Location Coordinates
+	Start    int64 // Data start (unix time, UTC time zone)
+	End      int64 // Data end (unix time, UTC time zone)
 }
 
 // Pollution holds the data returnd from the pollution API
@@ -75,12 +68,62 @@ func NewPollution(key string, options ...Option) (*Pollution, error) {
 	return p, nil
 }
 
-// PollutionByParams gets the pollution data based on the given parameters
+// PollutionByParams gets the current pollution data based on the given parameters
 func (p *Pollution) PollutionByParams(params *PollutionParameters) error {
 	url := fmt.Sprintf(pollutionURL,
 		p.Key,
 		strconv.FormatFloat(params.Location.Latitude, 'f', -1, 64),
 		strconv.FormatFloat(params.Location.Longitude, 'f', -1, 64),
+	)
+	response, err := p.client.Get(url)
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode == http.StatusUnauthorized {
+		return errInvalidKey
+	}
+
+	if err = json.NewDecoder(response.Body).Decode(&p); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// ForecastPollutionByParams gets the forecast forecast pollution data based on the given parameters
+func (p *Pollution) ForecastPollutionByParams(params *PollutionParameters) error {
+	url := fmt.Sprintf(forecastPollutionURL,
+		p.Key,
+		strconv.FormatFloat(params.Location.Latitude, 'f', -1, 64),
+		strconv.FormatFloat(params.Location.Longitude, 'f', -1, 64),
+	)
+	response, err := p.client.Get(url)
+	if err != nil {
+		return err
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode == http.StatusUnauthorized {
+		return errInvalidKey
+	}
+
+	if err = json.NewDecoder(response.Body).Decode(&p); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// HistoricalPollutionByParams gets the historical pollution data based on the given parameters
+func (p *Pollution) HistoricalPollutionByParams(params *HistoricalPollutionParameters) error {
+	url := fmt.Sprintf(historicalPollutionURL,
+		p.Key,
+		strconv.FormatFloat(params.Location.Latitude, 'f', -1, 64),
+		strconv.FormatFloat(params.Location.Longitude, 'f', -1, 64),
+		params.Start,
+		params.End,
 	)
 	response, err := p.client.Get(url)
 	if err != nil {
