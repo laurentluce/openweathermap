@@ -62,6 +62,8 @@ Gain access to OpenWeatherMap icons and condition codes.
 ### Pollution Data
 
 - Current
+- Forecast
+- Historical
 
 ## Historical Conditions
 
@@ -200,7 +202,7 @@ func main() {
     if err := uv.Current(coord); err != nil {
         log.Fatalln(err)
     }
-    
+
     fmt.Println(coord)
 }
 ```
@@ -236,12 +238,12 @@ func main() {
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     coord := &owm.Coordinates{
     	Longitude: 53.343497,
     	Latitude:  -6.288379,
     }
-    
+
     if err := uv.Current(coord); err != nil {
     	log.Fatalln(err)
     }
@@ -250,7 +252,7 @@ func main() {
     if err != nil {
         log.Fatalln(err)
     }
-    
+
     fmt.Println(info)
 }
 ```
