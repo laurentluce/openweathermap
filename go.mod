@@ -1,4 +1,4 @@
-module github.com/briandowns/openweathermap
+module github.com/laurentluce/openweathermap
 
 go 1.13
 
