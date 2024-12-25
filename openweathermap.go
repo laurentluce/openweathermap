@@ -44,7 +44,7 @@ var (
 	historyURL             = "https://api.openweathermap.org/data/2.5/history/%s"
 	pollutionURL           = "https://api.openweathermap.org/data/2.5/air_pollution?appid=%s&lat=%s&lon=%s"
 	forecastPollutionURL   = "https://api.openweathermap.org/data/2.5/air_pollution/forecast?appid=%s&lat=%s&lon=%s"
-	historicalPollutionURL = "https://api.openweathermap.org/data/2.5/air_pollution/historical?appid=%s&lat=%s&lon=%s&start=%d&end=%d"
+	historicalPollutionURL = "https://api.openweathermap.org/data/2.5/air_pollution/history?appid=%s&lat=%s&lon=%s&start=%d&end=%d"
 	uvURL                  = "https://api.openweathermap.org/data/2.5/"
 	dataPostURL            = "https://openweathermap.org/data/post"
 )

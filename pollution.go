@@ -7,34 +7,18 @@ import (
 	"strconv"
 )
 
-// DateTimeAliases holds the alias the pollution API supports in lieu
-// of an ISO 8601 timestamp
-var DateTimeAliases = []string{"current"}
-
-// ValidAlias checks to make sure the given alias is a valid one
-func ValidAlias(alias string) bool {
-	for _, i := range DateTimeAliases {
-		if i == alias {
-			return true
-		}
-	}
-	return false
-}
-
 // PollutionParameters holds the parameters needed to make
 // a call to the current and forecast pollution API
 type PollutionParameters struct {
 	Location Coordinates
-	Datetime string // this should be either ISO 8601 or an alias
 }
 
 // HistoricalPollutionParameters holds the parameters needed to make
 // a call to the historical pollution API
 type HistoricalPollutionParameters struct {
 	Location Coordinates
-	Datetime string // this should be either ISO 8601 or an alias
-	Start    int64  // Data start (unix time, UTC time zone)
-	End      int64  // Data end (unix time, UTC time zone)
+	Start    int64 // Data start (unix time, UTC time zone)
+	End      int64 // Data end (unix time, UTC time zone)
 }
 
 // Pollution holds the data returnd from the pollution API

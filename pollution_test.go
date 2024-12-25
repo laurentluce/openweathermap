@@ -80,16 +80,6 @@ func TestNewPollutionWithInvalidHttpClient(t *testing.T) {
 	}
 }
 
-func TestValidAlias(t *testing.T) {
-	t.Parallel()
-	testAliases := []string{"now", "then", "current"}
-	for _, i := range testAliases {
-		if !ValidAlias(i) {
-			t.Log("received expected failure")
-		}
-	}
-}
-
 // TestPollutionByParams tests the call to the current pollution API
 func TestPollutionByParams(t *testing.T) {
 	t.Parallel()
@@ -102,7 +92,6 @@ func TestPollutionByParams(t *testing.T) {
 			Latitude:  0.0,
 			Longitude: 10.0,
 		},
-		Datetime: "current",
 	}
 	if err := p.PollutionByParams(params); err != nil {
 		t.Error(err)
@@ -121,7 +110,6 @@ func TestForecastPollutionByParams(t *testing.T) {
 			Latitude:  0.0,
 			Longitude: 10.0,
 		},
-		Datetime: "current",
 	}
 	if err := p.ForecastPollutionByParams(params); err != nil {
 		t.Error(err)
@@ -140,11 +128,14 @@ func TestHistoricalPollutionByParams(t *testing.T) {
 			Latitude:  0.0,
 			Longitude: 10.0,
 		},
-		Datetime: "current",
-		Start:    1606223802,
-		End:      1606482999,
+		Start: 1606223802,
+		End:   1606482999,
 	}
 	if err := p.HistoricalPollutionByParams(params); err != nil {
 		t.Error(err)
+	}
+	t.Logf("p list: %v\n", p.List)
+	for _, pollutionData := range p.List {
+		t.Logf("Pollution data Aqi: %f\n", pollutionData.Main.Aqi)
 	}
 }
